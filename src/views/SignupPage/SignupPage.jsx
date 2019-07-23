@@ -27,7 +27,7 @@ import image from "assets/img/bg7.jpg";
 
 import { withRouter } from "react-router-dom";
 
-class LoginPage extends React.Component {
+class SignupPage extends React.Component {
   constructor(props) {
     super(props);
     // we use this to make the card to appear after the page has been rendered
@@ -76,7 +76,7 @@ class LoginPage extends React.Component {
                 <Card className={classes[this.state.cardAnimaton]}>
                   <form className={classes.form}>
                     <CardHeader color="primary" className={classes.cardHeader}>
-                      <h4>Let's get started</h4>
+                      <h4>Sign Up</h4>
                     </CardHeader>
                     <CardBody>
                       <CustomInput
@@ -112,13 +112,28 @@ class LoginPage extends React.Component {
                           autoComplete: "off"
                         }}
                       />
+                      <CustomInput
+                        labelText="Confirm Password"
+                        id="passConfirm"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          type: "password",
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <Icon className={classes.inputIconsColor}>
+                                lock_outline
+                              </Icon>
+                            </InputAdornment>
+                          ),
+                          autoComplete: "off"
+                        }}
+                      />
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
                       <Button simple color="primary" size="lg" onClick={() => this.handleClickButton('logIn')}>
-                        Log In
-                      </Button>
-                      <Button simple color="primary" size="lg" onClick={() => this.handleClickButton("singUp")}>
-                        Sign Up
+                        Get Started
                       </Button>
                     </CardFooter>
                   </form>
@@ -133,8 +148,8 @@ class LoginPage extends React.Component {
   }
 }
 
-LoginPage.propTypes = {
+SignupPage.propTypes = {
   classes: PropTypes.object
 };
 
-export default withStyles(loginPageStyle)(LoginPage);
+export default withStyles(loginPageStyle)(SignupPage);
