@@ -27,6 +27,7 @@ import Components from "views/Components/Components.jsx";
 import LandingPage from "views/LandingPage/LandingPage.jsx";
 import ProfilePage from "views/ProfilePage/ProfilePage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
+import EventPage from "views/EventPage/EventPage.jsx"
 
 var hist = createBrowserHistory();
 
@@ -36,6 +37,7 @@ ReactDOM.render(
       <Route path="/landing-page" component={LandingPage} />
       <Route path="/profile-page" component={ProfilePage} />
       <Route path="/login-page" component={LoginPage} />
+	  <Route path="/event-page" component={EventPage} />
       <Route path="/" component={Components} />
     </Switch>
   </Router>,
