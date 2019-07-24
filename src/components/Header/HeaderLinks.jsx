@@ -71,21 +71,24 @@ function HeaderLinks({ ...props }) {
           }}
           buttonIcon={Apps}
           dropdownList={[
-            <Link to="/" className={classes.dropdownLink}>
-              Favourites
+            <Link to="/profile-page" className={classes.dropdownLink}>
+              My Profile
             </Link>,
-            <a
-              href="https://creativetimofficial.github.io/material-kit-react/#/documentation?ref=mkr-navbar"
-              target="_blank"
-              className={classes.dropdownLink}
-            >
-              My Events
-            </a>,
             <Link to="/login-page" className={classes.dropdownLink}>
             Sign Out
           </Link>,
           ]}
         />
+      </ListItem>
+      <ListItem className={classes.listItem}>
+        <Button
+          href="localhost"
+          color="transparent"
+          target="_blank"
+          className={classes.navLink}
+        >
+          Log In
+        </Button>
       </ListItem>
     </List>
   );
