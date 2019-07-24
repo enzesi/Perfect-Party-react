@@ -27,6 +27,8 @@ import image from "assets/img/bg7.jpg";
 
 import { withRouter } from "react-router-dom";
 
+const axios = require('axios')
+
 class SignupPage extends React.Component {
   constructor(props) {
     super(props);
