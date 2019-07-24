@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Material Kit React - v1.7.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-kit-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/material-kit-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 /*eslint-disable*/
 import React from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -51,16 +34,16 @@ function HeaderLinks({ ...props }) {
           Create Options
         </Button>
       </ListItem>
+
       <ListItem className={classes.listItem}>
-        <Button
-          href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
+        <Link to="/event-page" className={classes.dropdownLink}
           color="transparent"
           target="_blank"
-          className={classes.navLink}
-        >
+          className={classes.navLink}>
           Create Events
-        </Button>
+        </Link>
       </ListItem>
+
       <ListItem className={classes.listItem}>
         <CustomDropdown
           noLiPadding
@@ -75,20 +58,18 @@ function HeaderLinks({ ...props }) {
               My Profile
             </Link>,
             <Link to="/login-page" className={classes.dropdownLink}>
-            Sign Out
+              Sign Out
           </Link>,
           ]}
         />
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Button
-          href="localhost"
+      <Link to="/login-page" className={classes.dropdownLink}
           color="transparent"
           target="_blank"
-          className={classes.navLink}
-        >
+          className={classes.navLink}>
           Log In
-        </Button>
+        </Link>
       </ListItem>
     </List>
   );

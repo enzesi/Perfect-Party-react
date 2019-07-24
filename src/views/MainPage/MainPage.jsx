@@ -68,7 +68,7 @@ class MainPage extends React.Component {
           }}
           {...rest}
         />
-        <Parallax image={require("assets/img/bg4.jpg")}>
+        <Parallax image={require("assets/img/p7.jpg")}>
           <div className={classes.container}>
             <GridContainer>
               <GridItem>
