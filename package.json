@@ -39,6 +39,7 @@
   "optionalDependencies": {
     "typescript": "3.5.1"
   },
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -61,5 +62,5 @@
     ],
     "development": []
   },
-  "proxy": "http://localhost:3003"
+  "proxy": "http://localhost:3003" 
 }
