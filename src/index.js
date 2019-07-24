@@ -12,6 +12,7 @@ import ProfilePage from "views/ProfilePage/ProfilePage.jsx";
 import LoginPage from "views/LoginPage/LoginPage.jsx";
 import SignupPage from "views/SignupPage/SignupPage.jsx";
 import MainPage from "views/MainPage/MainPage.jsx";
+import EventPage from "views/EventPage/EventPage.jsx"
 
 var hist = createBrowserHistory();
 
@@ -24,6 +25,7 @@ ReactDOM.render(
       <Route path="/login-page" component={LoginPage} />
       <Route path="/signup-page" component={SignupPage} />
       <Route path="/components-page" component={Components} />
+	    <Route path="/event-page" component={EventPage} />
     </Switch>
   </Router>,
   document.getElementById("root")
