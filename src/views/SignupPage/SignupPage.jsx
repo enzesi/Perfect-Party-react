@@ -59,8 +59,10 @@ class SignupPage extends React.Component {
             name: this.state.name,
             email: this.state.email,
             phone: this.state.phone,
-            billing: this.state.billing,
-            address: this.state.address,
+            // billing: this.state.billing,
+            // address: this.state.address,
+            address: '',
+            billing: '',
             password: this.state.password,
             adver: this.state.adver,
         }
