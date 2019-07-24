@@ -24,73 +24,30 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
 import image from "assets/img/bg7.jpg";
-import TextField from '@material-ui/core/TextField';
-import clsx from 'clsx';
 
 import { withRouter } from "react-router-dom";
-import ls from 'local-storage';
-import axios from 'axios';
 
-class LoginPage extends React.Component {
+const axios = require('axios')
+
+class SignupPage extends React.Component {
   constructor(props) {
     super(props);
     // we use this to make the card to appear after the page has been rendered
     this.state = {
-      cardAnimaton: "cardHidden",
-      clientId: null,
-      password: null,
-      email: null,
-      showPassword: false
+      cardAnimaton: "cardHidden"
     };
     this.handleClickButton = this.handleClickButton.bind(this)
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePassChange = this.handlePassChange.bind(this);
   }
 
   handleClickButton(state) {
-    let path;
-    if (state == 'logIn') {
-      let data = {
-        email: this.state.email,
-        password: this.state.password
-      }
-      console.log('log client')
-      console.log(data)
-      axios.post('http://localhost:3003/clientPassword', { data })
-        .then(res => {
-          console.log(res)
-          console.log(res.data)
-          ls.set('clientId', res.data)
-          path = '/profile-page'
-        })
-    } else if (state == 'signUp') {
-      path = '/signup-page'
-    }
+    let path = (state == 'logIn') ? '/profile-page' : '/signup-page'
     this.props.history.push(path)
-  }
-
-  handleEmailChange(event) {
-    if (event) {
-      this.setState({
-        email: event.target.value
-      })
-      console.log('handleEmailChange called')
-    }
-  }
-
-  handlePassChange(event) {
-    if (event) {
-      this.setState({
-        password: event.target.value
-      })
-      console.log('handlePassChange called')
-    }
   }
 
   componentDidMount() {
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
     setTimeout(
-      function () {
+      function() {
         this.setState({ cardAnimaton: "" });
       }.bind(this),
       700
@@ -105,7 +62,7 @@ class LoginPage extends React.Component {
           color="transparent"
           brand="Perfect Party"
           rightLinks={<HeaderLinks />}
-        // {...rest}
+          // {...rest}
         />
         <div
           className={classes.pageHeader}
@@ -121,34 +78,64 @@ class LoginPage extends React.Component {
                 <Card className={classes[this.state.cardAnimaton]}>
                   <form className={classes.form}>
                     <CardHeader color="primary" className={classes.cardHeader}>
-                      <h4>Let's get started</h4>
+                      <h4>Sign Up</h4>
                     </CardHeader>
                     <CardBody>
-                      <TextField
+                      <CustomInput
+                        labelText="Email..."
                         id="email"
-                        label="Email"
-                        className={classes.textField}
-                        value={this.state.email}
-                        onChange={this.handleEmailChange}
-                        margin="normal"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          type: "email",
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <Email className={classes.inputIconsColor} />
+                            </InputAdornment>
+                          )
+                        }}
                       />
-
-                      <TextField
+                      <CustomInput
+                        labelText="Password"
                         id="pass"
-                        className={clsx(classes.margin, classes.textField)}
-                        variant="filled"
-                        type={this.state.showPassword ? 'text' : 'password'}
-                        label="Password"
-                        value={this.state.password}
-                        onChange={this.handlePassChange}
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          type: "password",
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <Icon className={classes.inputIconsColor}>
+                                lock_outline
+                              </Icon>
+                            </InputAdornment>
+                          ),
+                          autoComplete: "off"
+                        }}
+                      />
+                      <CustomInput
+                        labelText="Confirm Password"
+                        id="passConfirm"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          type: "password",
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <Icon className={classes.inputIconsColor}>
+                                lock_outline
+                              </Icon>
+                            </InputAdornment>
+                          ),
+                          autoComplete: "off"
+                        }}
                       />
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
                       <Button simple color="primary" size="lg" onClick={() => this.handleClickButton('logIn')}>
-                        Log In
-                      </Button>
-                      <Button simple color="primary" size="lg" onClick={() => this.handleClickButton("singUp")}>
-                        Sign Up
+                        Get Started
                       </Button>
                     </CardFooter>
                   </form>
@@ -163,8 +150,8 @@ class LoginPage extends React.Component {
   }
 }
 
-LoginPage.propTypes = {
+SignupPage.propTypes = {
   classes: PropTypes.object
 };
 
-export default withStyles(loginPageStyle)(LoginPage);
+export default withStyles(loginPageStyle)(SignupPage);

@@ -7,11 +7,16 @@
   "dependencies": {
     "@material-ui/core": "4.1.0",
     "@material-ui/icons": "4.1.0",
+    "axios": "^0.19.0",
     "classnames": "2.2.6",
     "history": "4.9.0",
+    "local-storage": "^2.0.0",
+    "material-table": "^1.40.1",
     "moment": "2.24.0",
     "node-sass": "4.12.0",
     "nouislider": "13.1.5",
+    "primeicons": "^1.0.0",
+    "primereact": "^3.1.7",
     "prop-types": "15.7.2",
     "react": "16.8.6",
     "react-datetime": "2.16.3",
@@ -34,6 +39,7 @@
   "optionalDependencies": {
     "typescript": "3.5.1"
   },
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -55,5 +61,6 @@
       "not op_mini all"
     ],
     "development": []
-  }
+  },
+  "proxy": "http://localhost:3003" 
 }
