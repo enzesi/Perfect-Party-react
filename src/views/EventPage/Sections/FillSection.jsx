@@ -16,6 +16,8 @@
 
 */
 import React from "react";
+import axios from "axios";
+
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 // @material-ui/core components
@@ -39,6 +41,8 @@ import FlowerSection from "./FlowerSection.jsx";
 import CateringSection from "./CateringSection.jsx";
 import EntertainSection from "./EntertainSection.jsx";
 
+import TextField from '@material-ui/core/TextField';
+
 // @material-ui/icons
 import Timeline from "@material-ui/icons/Timeline";
 
@@ -48,6 +52,44 @@ import InfoArea from "components/InfoArea/InfoArea.jsx";
 import fillStyle from "assets/jss/material-kit-react/views/eventPageSections/fillStyle.jsx";
 
 class FillSection extends React.Component {
+  constructor(props) {
+    super(props)
+    this.nameChange = this.nameChange.bind(this)
+    this.sizeChange = this.sizeChange.bind(this);
+    this.budgetChange = this.budgetChange.bind(this);
+  }
+  nameChange = event => {
+  	  this.setState({ name: event.target.value});
+  };
+  
+  sizeChange = event => {
+  	  this.setState({ size: event.target.value});
+	  console.log(this.size)
+  };
+
+  budgetChange = event => {
+  	  this.setState({ budget: event.target.value});
+	  console.log(this.budget)
+  };
+
+  state = {
+  	  name: '',
+	  size: '',
+	  budget: '',
+  }
+
+  handleSubmit = event => {
+  	  event.preventDefault()
+	  const user = {
+	  	  eventname: this.state.name,
+		  numattend: this.state.size,
+		  budget: this.state.budget,
+	  }
+	  axios.post('http://localhost:3003/createEvent', {user}).then(res => {
+	  		console.log(res)
+			console.log(res.data)
+	  })
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -57,40 +99,44 @@ class FillSection extends React.Component {
             <h3 className={classes.title}>
               Please fill in the options bellow
             </h3>
-            <form>
+			<form onSubmit={this.handleSubmit}>
                 <GridItem xs={12} sm={12} md={8}>
-                  <CustomInput
-                    labelText="Give the Event a Name..."
-                    id="name"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
+				  <TextField
+                        id="name"
+                        label="Event Name"
+                        className={classes.textField}
+                        value={this.state.name}
+                        onChange={this.nameChange}
+                        margin="normal"
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={8}>
-                  <CustomInput
-                    labelText="Number of Attendees..."
-                    id="size"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
+				  <TextField
+                        id="size"
+                        label="Number of Attendees"
+						type="number"
+                        className={classes.textField}
+                        value={this.state.size}
+                        onChange={this.sizeChange}
+                        margin="normal"
                   />
                 </GridItem>
 				<GridItem xs={12} sm={12} md={8}>
-					<CustomInput
-					  labelText="Budget in $..."
-					  id="budget"
-					  formControlProps={{
-						fullWidth: true,
-					  }}
-					/>
+				  <TextField
+                        id="size"
+                        label="Budget"
+						type="number"
+                        className={classes.textField}
+                        value={this.state.budget}
+                        onChange={this.budgetChange}
+                        margin="normal"
+                  />
 			    </GridItem>			
 
 				<LocationSection />
 				<FlowerSection />
 				<CateringSection />
 				<EntertainSection />
-
 
 				<InfoArea
 				  title="Cost"
@@ -104,11 +150,12 @@ class FillSection extends React.Component {
                     md={4}
                     className={classes.textCenter}
                   >
-                    <Button color="primary">Create Your Event</Button>
+                    <Button type="submit" color="primary">Create Your Event</Button>
                   </GridItem>
                 </GridContainer>
             </form>
           </GridItem>
+
         </GridContainer>
       </div>
     );
