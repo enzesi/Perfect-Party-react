@@ -147,7 +147,7 @@ class LoginPage extends React.Component {
                       <Button simple color="primary" size="lg" onClick={() => this.handleClickButton('logIn')}>
                         Log In
                       </Button>
-                      <Button simple color="primary" size="lg" onClick={() => this.handleClickButton("singUp")}>
+                      <Button simple color="primary" size="lg" onClick={() => this.handleClickButton("signUp")}>
                         Sign Up
                       </Button>
                     </CardFooter>
