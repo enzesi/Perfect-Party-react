@@ -25,6 +25,7 @@ import axios from "axios";
 import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.jsx";
 
 import MaterialTable from 'material-table';
+import ls from 'local-storage';
 
 class ProfilePage extends React.Component {
   constructor(props) {
@@ -56,13 +57,36 @@ class ProfilePage extends React.Component {
       columns: columns,
       history: history,
       upcoming: upcoming,
-      favourites: favourites
+      favourites: favourites,
+      clientId: ls.get('clientId'),
+      name: null,
     };
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/clientInfo').then(res => {
-      console.log(res)
+    axios.get('http://localhost:3000/nameOfCliendId').then(res => {
+      console.log(res.data)
+      this.setState({
+        name: res.data
+      })
+    })
+    axios.get('http://localhost:3000/pastEvent').then(res => {
+      console.log(res.data)
+      this.setState({
+        history: res.data
+      })
+    })
+    axios.get('http://localhost:3000/futureEvent').then(res => {
+      console.log(res.data)
+      this.setState({
+        upcoming: res.data
+      })
+    })
+    axios.get('http://localhost:3000/favourites').then(res => {
+      console.log(res.data)
+      this.setState({
+        favourites: res.data
+      })
     })
   }
 
@@ -98,7 +122,7 @@ class ProfilePage extends React.Component {
                       <img src={profile} alt="..." className={imageClasses} />
                     </div>
                     <div className={classes.name}>
-                      <h3 className={classes.title}>Christian Louboutin</h3>
+                      <h3 className={classes.title}>{this.state.name}}</h3>
                     </div>
                   </div>
                 </GridItem>
@@ -123,6 +147,12 @@ class ProfilePage extends React.Component {
                                 tooltip: 'Favourite',
                                 onClick: (event, rowData) => {
                                   // Do save operation
+                                  axios.get('http://localhost:3003/favouriteEvent').then(res => {
+                                    console.log(res.data)
+                                    this.setState({                    
+                                      favourites: res.data
+                                    })
+                                  })
                                 }
                               }
                             ]}
@@ -143,6 +173,12 @@ class ProfilePage extends React.Component {
                                 tooltip: 'Favourite',
                                 onClick: (event, rowData) => {
                                   // Do save operation
+                                  axios.get('http://localhost:3003/favouriteEvent').then(res => {
+                                    console.log(res.data)
+                                    this.setState({                    
+                                      favourites: res.data
+                                    })
+                                  })
                                 }
                               }
                             ]}
@@ -159,10 +195,19 @@ class ProfilePage extends React.Component {
                             data={this.state.favourites}
                             actions={[
                               {
-                                icon: 'save',
-                                tooltip: 'Favourite',
+                                icon: 'delete',
+                                tooltip: 'Unfavourite',
                                 onClick: (event, rowData) => {
-                                  // Do save operation
+                                  // Do unsave operation
+                                  axios.get('http://localhost:3003/unfavouriteEvent').then(res => {
+                                    console.log(res.data)
+                                    axios.get('http://localhost:3003/clientfavourites').then(res => {
+                                    console.log(res.data)
+                                    this.setState({                    
+                                      favourites: res.data
+                                    })
+                                  })
+                                  })
                                 }
                               }
                             ]}

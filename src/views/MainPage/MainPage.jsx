@@ -22,6 +22,7 @@ import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import componentsStyle from "assets/jss/material-kit-react/views/components.jsx";
 
 import MaterialTable from 'material-table';
+import axios from 'axios';
 
 class MainPage extends React.Component {
 
@@ -48,10 +49,11 @@ class MainPage extends React.Component {
     };
   }
 
-  createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+  componentDidMount() {
+    axios.get('http://localhost:3003/').then(res => {
+      
+    })
   }
-
 
   render() {
     const { classes, ...rest } = this.props;
@@ -92,7 +94,11 @@ class MainPage extends React.Component {
               icon: 'save',
               tooltip: 'Favourite',
               onClick: (event, rowData) => {
-                // Do save operation
+                // Do favourtie operation
+                console.log('favourite event')
+                // axios.get('http://localhost:3003/').then(res => {
+
+                // })
               }
             }
           ]}

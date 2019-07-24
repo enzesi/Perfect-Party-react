@@ -25,6 +25,15 @@ function HeaderLinks({ ...props }) {
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
+        <Link to="/" className={classes.dropdownLink}
+          color="transparent"
+          target="_blank"
+          className={classes.navLink}>
+          All Events
+        </Link>
+      </ListItem>
+
+      <ListItem className={classes.listItem}>
         <Button
           href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
           color="transparent"
