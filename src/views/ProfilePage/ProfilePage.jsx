@@ -20,21 +20,12 @@ import NavPills from "components/NavPills/NavPills.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 
 import profile from "assets/img/faces/christian.jpg";
-
-import studio1 from "assets/img/examples/studio-1.jpg";
-import studio2 from "assets/img/examples/studio-2.jpg";
-import studio3 from "assets/img/examples/studio-3.jpg";
-import studio4 from "assets/img/examples/studio-4.jpg";
-import studio5 from "assets/img/examples/studio-5.jpg";
-import work1 from "assets/img/examples/olu-eletu.jpg";
-import work2 from "assets/img/examples/clem-onojeghuo.jpg";
-import work3 from "assets/img/examples/cynthia-del-rio.jpg";
-import work4 from "assets/img/examples/mariya-georgieva.jpg";
-import work5 from "assets/img/examples/clem-onojegaw.jpg";
+import axios from "axios";
 
 import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.jsx";
 
 import MaterialTable from 'material-table';
+import ls from 'local-storage';
 
 class ProfilePage extends React.Component {
   constructor(props) {
@@ -66,8 +57,37 @@ class ProfilePage extends React.Component {
       columns: columns,
       history: history,
       upcoming: upcoming,
-      favourites: favourites
+      favourites: favourites,
+      clientId: ls.get('clientId'),
+      name: null,
     };
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:3003/nameOfCliendId').then(res => {
+      console.log(res.data)
+      this.setState({
+        name: res.data
+      })
+    })
+    axios.get('http://localhost:3003/pastEvent').then(res => {
+      console.log(res.data)
+      this.setState({
+        history: res.data
+      })
+    })
+    axios.get('http://localhost:3003/futureEvent').then(res => {
+      console.log(res.data)
+      this.setState({
+        upcoming: res.data
+      })
+    })
+    axios.get('http://localhost:3003/favourites').then(res => {
+      console.log(res.data)
+      this.setState({
+        favourites: res.data
+      })
+    })
   }
 
   render() {
@@ -102,7 +122,7 @@ class ProfilePage extends React.Component {
                       <img src={profile} alt="..." className={imageClasses} />
                     </div>
                     <div className={classes.name}>
-                      <h3 className={classes.title}>Christian Louboutin</h3>
+                      <h3 className={classes.title}>{this.state.name}}</h3>
                     </div>
                   </div>
                 </GridItem>
@@ -127,6 +147,12 @@ class ProfilePage extends React.Component {
                                 tooltip: 'Favourite',
                                 onClick: (event, rowData) => {
                                   // Do save operation
+                                  axios.get('http://localhost:3003/favouriteEvent').then(res => {
+                                    console.log(res.data)
+                                    this.setState({                    
+                                      favourites: res.data
+                                    })
+                                  })
                                 }
                               }
                             ]}
@@ -147,6 +173,12 @@ class ProfilePage extends React.Component {
                                 tooltip: 'Favourite',
                                 onClick: (event, rowData) => {
                                   // Do save operation
+                                  axios.get('http://localhost:3003/favouriteEvent').then(res => {
+                                    console.log(res.data)
+                                    this.setState({                    
+                                      favourites: res.data
+                                    })
+                                  })
                                 }
                               }
                             ]}
@@ -163,10 +195,19 @@ class ProfilePage extends React.Component {
                             data={this.state.favourites}
                             actions={[
                               {
-                                icon: 'save',
-                                tooltip: 'Favourite',
+                                icon: 'delete',
+                                tooltip: 'Unfavourite',
                                 onClick: (event, rowData) => {
-                                  // Do save operation
+                                  // Do unsave operation
+                                  axios.get('http://localhost:3003/unfavouriteEvent').then(res => {
+                                    console.log(res.data)
+                                    axios.get('http://localhost:3003/clientfavourites').then(res => {
+                                    console.log(res.data)
+                                    this.setState({                    
+                                      favourites: res.data
+                                    })
+                                  })
+                                  })
                                 }
                               }
                             ]}

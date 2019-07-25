@@ -32,7 +32,7 @@ class EventPage extends React.Component {
         <Header
           color="transparent"
           routes={dashboardRoutes}
-          brand="The Perfect Party"
+          brand="Perfect Party"
           rightLinks={<HeaderLinks />}
           fixed
           changeColorOnScroll={{

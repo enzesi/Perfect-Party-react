@@ -19,11 +19,21 @@ import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 
 import headerLinksStyle from "assets/jss/material-kit-react/components/headerLinksStyle.jsx";
+import ls from 'local-storage';
 
 function HeaderLinks({ ...props }) {
   const { classes } = props;
   return (
     <List className={classes.list}>
+      <ListItem className={classes.listItem}>
+        <Link to="/" className={classes.dropdownLink}
+          color="transparent"
+          target="_blank"
+          className={classes.navLink}>
+          All Events
+        </Link>
+      </ListItem>
+
       <ListItem className={classes.listItem}>
         <Button
           href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
@@ -57,7 +67,8 @@ function HeaderLinks({ ...props }) {
             <Link to="/profile-page" className={classes.dropdownLink}>
               My Profile
             </Link>,
-            <Link to="/login-page" className={classes.dropdownLink}>
+            <Link to="/login-page" className={classes.dropdownLink}
+             onClick={() => { ls.set('clientId', null); }}>
               Sign Out
           </Link>,
           ]}
