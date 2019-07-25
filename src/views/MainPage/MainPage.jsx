@@ -57,21 +57,23 @@ class MainPage extends React.Component {
     axios.get('http://localhost:3003/allEvents').then(res => {
       console.log(res.data)
       let events = []
-      for(let i = 0; i < res.data.length; i++) {
+      var data = JSON.parse(res.data)
+      for(let i = 0; i < data.length; i++) {
         events.push({
-          eventid: res.data[i]['eventid'],
-          title: res.data[i]['eventid'],
-          capacity: res.data[i]['capacity'],
-          budget: res.data[i]['budget'],
-          startdate: res.data[i]['startdate'],
-          enddate: res.data[i]['enddate'],
-          budget: res.data[i]['location'],
-          startdate: res.data[i]['catering'],
-          enddate: res.data[i]['flower'],
-          enddate: res.data[i]['entertainment'],
+          eventid: data[i]["eventid"],
+          title: data[i]["eventid"],
+          capacity: data[i]['capacity'],
+          budget: data[i]['budget'],
+          startdate: data[i]['startdate'],
+          enddate: data[i]['enddate'],
+          location: data[i]['location'],
+          catering: data[i]['catering'],
+          flower: data[i]['flower'],
+          entertainment: data[i]['entertainment'],
         })
       }
       console.log('log events')
+      console.log(events)
       this.setState({
         events: events
       });
@@ -118,19 +120,13 @@ class MainPage extends React.Component {
               tooltip: 'Favourite',
               onClick: (event, rowData) => {
                 // Do favourtie operation
-                let data = {
-                  clientId: this.state.clientId,
-                  eventId: rowData['eventId']
-                }
+                let clientId = this.state.clientId[0]['clientid']
+                let eventId =  rowData['eventid']
+                
                 console.log('favourite event')
                 console.log('log data')
-                console.log(data)
-                axios.get('http://localhost:3003/createFavEvent', {
-                  params: {
-                    clientid: data.clientId,
-                    eventid: data.eventId
-                  }
-                }).then(res => {
+                //console.log(data)
+                axios.get('http://localhost:3003/createFavEvent/' + clientId + '/' + eventId).then(res => {
                   
                 })
               }
