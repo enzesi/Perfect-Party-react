@@ -66,18 +66,30 @@ class ProfilePage extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3003/nameOfCliendId').then(res => {
-      console.log('1: ', res.data)
-      this.setState({ name: res.data }, function () {
+    axios.get('http://localhost:3003/getClientName', {
+      params: {
+        id: this.state.clientId
+      }
+    }).then(res => {
+      console.log('1: ', res.clientname)
+      this.setState({ name: res.clientname }, function () {
         axios.get('http://localhost:3003/pastEvent').then(res => {
-          console.log('2: ', res.data)
-          this.setState({ history: res.data }, function() {
-            axios.get('http://localhost:3003/futureEvent').then(res => {
-              console.log('3: ', res.data)
-              this.setState({ upcoming: res.data }, function() {
-                axios.get('http://localhost:3003/favourites').then(res => {
-                  console.log('4: ', res.data)
-                  this.setState({ favourites: res.data });
+          console.log('2: ', res)
+          this.setState({ history: res }, function() {
+            axios.get('http://localhost:3003/upComingEvent', {
+              params: {
+                id: this.state.clientId
+              }
+            }).then(res => {
+              console.log('3: ', res)
+              this.setState({ upcoming: res }, function() {
+                axios.get('http://localhost:3003/favouriteEvents', {
+                  params: {
+                    id: this.state.clientId
+                  }
+                }).then(res => {
+                  console.log('4: ', res)
+                  this.setState({ favourites: res });
                 })
               });
             })
@@ -151,8 +163,13 @@ class ProfilePage extends React.Component {
                                   console.log('favourite event')
                                   console.log('log data')
                                   console.log(data)
-                                  axios.post('http://localhost:3003/favourite', { data }).then(res => {
-                  
+                                  axios.get('http://localhost:3003/createFavEvent', { 
+                                    params: {
+                                      clientid: data.clientId,
+                                      eventid: data.eventId
+                                    }
+                                   }).then(res => {
+                                    
                                   })
                                 }
                               }
@@ -181,8 +198,13 @@ class ProfilePage extends React.Component {
                                   console.log('favourite event')
                                   console.log('log data')
                                   console.log(data)
-                                  axios.post('http://localhost:3003/favourite', { data }).then(res => {
-                  
+                                  axios.get('http://localhost:3003/createFavEvent', { 
+                                    params: {
+                                      clientid: data.clientId,
+                                      eventid: data.eventId
+                                    }
+                                   }).then(res => {
+                                    
                                   })
                                 }
                               }
@@ -204,9 +226,22 @@ class ProfilePage extends React.Component {
                                 tooltip: 'Unfavourite',
                                 onClick: (event, rowData) => {
                                   // Do unsave operation
-                                  axios.get('http://localhost:3003/unfavouriteEvent').then(res => {
+                                  let data = {
+                                    clientId: this.state.clientId,
+                                    eventId: rowData['eventId']
+                                  }
+                                  axios.get('http://localhost:3003/deleteFavEvent', {
+                                    params: {
+                                      clientid: data.clientId,
+                                      eventid: data.eventId
+                                    } 
+                                  }).then(res => {
                                     console.log(res.data)
-                                    axios.get('http://localhost:3003/clientfavourites').then(res => {
+                                    axios.get('http://localhost:3003/favouriteEvents', {
+                                      params: {
+                                        clientid: data.clientId,
+                                      }
+                                    }).then(res => {
                                     console.log(res.data)
                                     this.setState({                    
                                       favourites: res.data

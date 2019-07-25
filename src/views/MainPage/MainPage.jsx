@@ -33,7 +33,7 @@ class MainPage extends React.Component {
       { eventId: '12', title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
     ]
     let columns = [
-      { title: 'Event Id', field: 'eventId'},
+      { title: 'Event Id', field: 'eventId' },
       { title: 'Title', field: 'title' },
       { title: 'Number of Invitees', field: 'invitees', type: 'numeric' },
       { title: 'Budget', field: 'budget', type: 'numeric' },
@@ -54,7 +54,7 @@ class MainPage extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3003/').then(res => {
+    axios.get('http://localhost:3003/allEvents').then(res => {
       console.log(res.data)
       this.setState({
         events: res.data
@@ -109,8 +109,13 @@ class MainPage extends React.Component {
                 console.log('favourite event')
                 console.log('log data')
                 console.log(data)
-                axios.post('http://localhost:3003/favourite', { data }).then(res => {
-
+                axios.get('http://localhost:3003/createFavEvent', {
+                  params: {
+                    clientid: data.clientId,
+                    eventid: data.eventId
+                  }
+                }).then(res => {
+                  
                 })
               }
             }
@@ -122,7 +127,7 @@ class MainPage extends React.Component {
                   resolve();
                   const data = [...this.state.events];
                   data[data.indexOf(oldData)] = newData;
-                  this.setState({ events : data });
+                  this.setState({ events: data });
                 }, 600);
               }),
             onRowDelete: oldData =>
@@ -131,7 +136,7 @@ class MainPage extends React.Component {
                   resolve();
                   const data = [...this.state.events];
                   data.splice(data.indexOf(oldData), 1);
-                  this.setState({ events : data });
+                  this.setState({ events: data });
                 }, 600);
               }),
           }}
