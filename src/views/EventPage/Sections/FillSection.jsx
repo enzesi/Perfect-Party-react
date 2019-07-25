@@ -34,6 +34,8 @@ import FlowerSection from "./FlowerSection.jsx";
 import CateringSection from "./CateringSection.jsx";
 import EntertainSection from "./EntertainSection.jsx";
 
+import { Link } from "react-router-dom";
+
 import TextField from '@material-ui/core/TextField';
 
 import ls from 'local-storage';
@@ -43,8 +45,13 @@ import Timeline from "@material-ui/icons/Timeline";
 
 // core components
 import InfoArea from "components/InfoArea/InfoArea.jsx";
+import { withRouter } from "react-router-dom";
+
+import { createHashHistory } from 'history'
 
 import fillStyle from "assets/jss/material-kit-react/views/eventPageSections/fillStyle.jsx";
+
+export const history = createHashHistory()
 
 class FillSection extends React.Component {
   constructor(props) {
@@ -78,7 +85,7 @@ class FillSection extends React.Component {
 	  type: 1,
 	  emailList: "",
 	  status: 1,
-	  visibility: 1,
+	  visibility: '1',
 	  clientId: ls.get('clientId'),
   }
 
@@ -714,6 +721,13 @@ class FillSection extends React.Component {
                     className={classes.textCenter}
                   >
                     <Button type="submit" color="primary">Create Your Event</Button>
+					<br />
+					<Link to="/" className={classes.dropdownLink}
+					  color="transparent"
+					  target="_blank"
+					  className={classes.navLink}>
+					  Back to Home Page
+					</Link>
                   </GridItem>
                 </GridContainer>
             </form>
