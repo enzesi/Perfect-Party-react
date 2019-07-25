@@ -64,8 +64,8 @@ class FillSection extends React.Component {
   	  name: '',
 	  size: 0,
 	  budget: 0,
-	  start: 0,
-	  end: 0,
+	  start: "",
+	  end: "",
 	  locationChoice: "a",
 	  flowerChoice: "a",
 	  cateringChoice: "a",
@@ -191,8 +191,7 @@ class FillSection extends React.Component {
 				<GridItem xs={12} sm={12} md={8}>
 				  <TextField
                         id="start"
-                        label="Start Date (YYYYMMDD)"
-						type="number"
+                        label="Start Date (YYYY-MM-DD)"
                         className={classes.textField}
                         value={this.state.start}
                         onChange={this.handleChange('start')}
@@ -202,8 +201,7 @@ class FillSection extends React.Component {
 				<GridItem xs={12} sm={12} md={8}>
 				  <TextField
                         id="end"
-                        label="End Date (YYYYMMDD)"
-						type="number"
+                        label="End Date (YYYY-MM-DD)"
                         className={classes.textField}
                         value={this.state.end}
                         onChange={this.handleChange('end')}
