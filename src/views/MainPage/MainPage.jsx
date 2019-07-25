@@ -28,7 +28,7 @@ import ls from 'local-storage';
 class MainPage extends React.Component {
 
   constructor(props) {
-    // let events = [
+    // let events2 = [
     //   { eventId: '2', title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
     //   { eventId: '12', title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
     // ]
@@ -56,8 +56,24 @@ class MainPage extends React.Component {
   componentDidMount() {
     axios.get('http://localhost:3003/allEvents').then(res => {
       console.log(res.data)
+      let events = []
+      for(let i = 0; i < res.data.length; i++) {
+        events.push({
+          eventid: res.data[i]['eventid'],
+          title: res.data[i]['eventid'],
+          capacity: res.data[i]['capacity'],
+          budget: res.data[i]['budget'],
+          startdate: res.data[i]['startdate'],
+          enddate: res.data[i]['enddate'],
+          budget: res.data[i]['location'],
+          startdate: res.data[i]['catering'],
+          enddate: res.data[i]['flower'],
+          enddate: res.data[i]['entertainment'],
+        })
+      }
+      console.log('log events')
       this.setState({
-        events: res.data
+        events: events
       });
     })
   }
