@@ -28,26 +28,26 @@ import ls from 'local-storage';
 class MainPage extends React.Component {
 
   constructor(props) {
-    let events = [
-      { eventId: '2', title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
-      { eventId: '12', title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
-    ]
+    // let events = [
+    //   { eventId: '2', title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
+    //   { eventId: '12', title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
+    // ]
     let columns = [
-      { title: 'Event Id', field: 'eventId' },
+      { title: 'Event Id', field: 'eventid' },
       { title: 'Title', field: 'title' },
-      { title: 'Number of Invitees', field: 'invitees', type: 'numeric' },
+      { title: 'Number of Invitees', field: 'capacity', type: 'numeric' },
       { title: 'Budget', field: 'budget', type: 'numeric' },
-      { title: 'Start Date', field: 'start', type: 'date' },
-      { title: 'End Date', field: 'end', type: 'date' },
+      { title: 'Start Date', field: 'startdate', type: 'date' },
+      { title: 'End Date', field: 'enddate', type: 'date' },
       { title: 'Location', field: 'location' },
-      { title: 'Menu', field: 'menu' },
+      { title: 'Menu', field: 'catering' },
       { title: 'Flower', field: 'flower' },
-      { title: 'Music', field: 'music' },
+      { title: 'Music', field: 'entertainment' },
     ]
     super(props);
     this.state = {
       columns: columns,
-      events: events,
+      events: [],
       clientId: ls.get('clientId'),
       eventId: null
     };
