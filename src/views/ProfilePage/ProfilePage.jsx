@@ -30,18 +30,20 @@ import ls from 'local-storage';
 class ProfilePage extends React.Component {
   constructor(props) {
     let history = [
-      { title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
-      { title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
+      { eventId: '2', title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
+      { eventId: '12', title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
     ]
     let upcoming = [
-      { title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
-      { title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
+      { eventId: '2', title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
+      { eventId: '12', title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
     ]
     let favourites = [
-      { title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
-      { title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
+      { eventId: '2', title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
+      { eventId: '12', title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
     ]
+
     let columns = [
+      { title: 'Event Id', field: 'eventId'},
       { title: 'Title', field: 'title' },
       { title: 'Number of Invitees', field: 'invitees', type: 'numeric' },
       { title: 'Budget', field: 'budget', type: 'numeric' },
@@ -65,28 +67,23 @@ class ProfilePage extends React.Component {
 
   componentDidMount() {
     axios.get('http://localhost:3003/nameOfCliendId').then(res => {
-      console.log(res.data)
-      this.setState({
-        name: res.data
-      })
-    })
-    axios.get('http://localhost:3003/pastEvent').then(res => {
-      console.log(res.data)
-      this.setState({
-        history: res.data
-      })
-    })
-    axios.get('http://localhost:3003/futureEvent').then(res => {
-      console.log(res.data)
-      this.setState({
-        upcoming: res.data
-      })
-    })
-    axios.get('http://localhost:3003/favourites').then(res => {
-      console.log(res.data)
-      this.setState({
-        favourites: res.data
-      })
+      console.log('1: ', res.data)
+      this.setState({ name: res.data }, function () {
+        axios.get('http://localhost:3003/pastEvent').then(res => {
+          console.log('2: ', res.data)
+          this.setState({ history: res.data }, function() {
+            axios.get('http://localhost:3003/futureEvent').then(res => {
+              console.log('3: ', res.data)
+              this.setState({ upcoming: res.data }, function() {
+                axios.get('http://localhost:3003/favourites').then(res => {
+                  console.log('4: ', res.data)
+                  this.setState({ favourites: res.data });
+                })
+              });
+            })
+          });
+        })
+      });
     })
   }
 
@@ -146,12 +143,16 @@ class ProfilePage extends React.Component {
                                 icon: 'save',
                                 tooltip: 'Favourite',
                                 onClick: (event, rowData) => {
-                                  // Do save operation
-                                  axios.get('http://localhost:3003/favouriteEvent').then(res => {
-                                    console.log(res.data)
-                                    this.setState({                    
-                                      favourites: res.data
-                                    })
+                                  // Do favourtie operation
+                                  let data = {
+                                    clientId: this.state.clientId,
+                                    eventId: rowData['eventId']
+                                  }
+                                  console.log('favourite event')
+                                  console.log('log data')
+                                  console.log(data)
+                                  axios.post('http://localhost:3003/favourite', { data }).then(res => {
+                  
                                   })
                                 }
                               }
@@ -172,12 +173,16 @@ class ProfilePage extends React.Component {
                                 icon: 'save',
                                 tooltip: 'Favourite',
                                 onClick: (event, rowData) => {
-                                  // Do save operation
-                                  axios.get('http://localhost:3003/favouriteEvent').then(res => {
-                                    console.log(res.data)
-                                    this.setState({                    
-                                      favourites: res.data
-                                    })
+                                  // Do favourtie operation
+                                  let data = {
+                                    clientId: this.state.clientId,
+                                    eventId: rowData['eventId']
+                                  }
+                                  console.log('favourite event')
+                                  console.log('log data')
+                                  console.log(data)
+                                  axios.post('http://localhost:3003/favourite', { data }).then(res => {
+                  
                                   })
                                 }
                               }
@@ -205,7 +210,7 @@ class ProfilePage extends React.Component {
                                     console.log(res.data)
                                     this.setState({                    
                                       favourites: res.data
-                                    })
+                                    });
                                   })
                                   })
                                 }
