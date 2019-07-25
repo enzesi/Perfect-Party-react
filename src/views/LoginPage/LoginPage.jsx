@@ -23,7 +23,7 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
-import image from "assets/img/bg7.jpg";
+import image from "assets/img/p1.jpg";
 import TextField from '@material-ui/core/TextField';
 import clsx from 'clsx';
 
@@ -128,6 +128,9 @@ class LoginPage extends React.Component {
                     </CardHeader>
                     <CardBody>
                       <TextField
+                        inputStyle={{ textAlign: 'center' }}
+                        hintStyle={{ width: '300px', textAlign: 'center' }}
+                        style={{ width: '300px' }}
                         id="email"
                         label="Email"
                         className={classes.textField}
@@ -137,6 +140,9 @@ class LoginPage extends React.Component {
                       />
 
                       <TextField
+                        inputStyle={{ textAlign: 'center' }}
+                        hintStyle={{ width: '300px', textAlign: 'center' }}
+                        style={{ width: '300px' }}
                         id="pass"
                         className={clsx(classes.margin, classes.textField)}
                         variant="filled"

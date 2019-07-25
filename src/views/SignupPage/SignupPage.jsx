@@ -23,7 +23,7 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
-import image from "assets/img/bg7.jpg";
+import image from "assets/img/p1.jpg";
 
 import { withRouter } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
@@ -147,7 +147,10 @@ class SignupPage extends React.Component {
                                             <h4>Sign Up</h4>
                                         </CardHeader>
                                         <CardBody>
-                                            <TextField
+                                            <TextField 
+                                                inputStyle={{ textAlign: 'center' }}
+                                                hintStyle={{ width: '300px', textAlign: 'center' }}
+                                                style={{ width: '300px' }}
                                                 id="name"
                                                 label="Name"
                                                 className={classes.textField}
@@ -155,7 +158,10 @@ class SignupPage extends React.Component {
                                                 onChange={this.handleNameChange}
                                                 margin="normal"
                                             />
-                                            <TextField
+                                            <TextField 
+                                                inputStyle={{ textAlign: 'center' }}
+                                                hintStyle={{ width: '300px', textAlign: 'center' }}
+                                                style={{ width: '300px' }}
                                                 id="phone"
                                                 label="Phone Number"
                                                 className={classes.textField}
@@ -164,6 +170,9 @@ class SignupPage extends React.Component {
                                                 margin="normal"
                                             />
                                             <TextField
+                                                inputStyle={{ textAlign: 'center' }}
+                                                hintStyle={{ width: '300px', textAlign: 'center' }}
+                                                style={{ width: '300px' }}
                                                 id="email"
                                                 label="Email"
                                                 className={classes.textField}
@@ -172,6 +181,9 @@ class SignupPage extends React.Component {
                                                 margin="normal"
                                             />
                                             <TextField
+                                                inputStyle={{ textAlign: 'center' }}
+                                                hintStyle={{ width: '300px', textAlign: 'center' }}
+                                                style={{ width: '300px' }}
                                                 id="pass"
                                                 className={clsx(classes.margin, classes.textField)}
                                                 variant="filled"
