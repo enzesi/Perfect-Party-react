@@ -70,6 +70,10 @@ class FillSection extends React.Component {
 	  flowerChoice: "a",
 	  cateringChoice: "a",
 	  entertainChoice: "a",
+	  location: 0,
+	  flower: 0,
+	  catering: 0,
+	  entertain: 0,
 
 	  type: 1,
 	  emailList: "",
@@ -80,14 +84,50 @@ class FillSection extends React.Component {
 
   handleSubmit = event => {
   	  event.preventDefault()
+	  if (this.state.locationChoice === "a") {
+	  	  this.state.location = 1
+	  } else if (this.state.locationChoice === "b") {
+	  	  this.state.location = 2
+	  } else if (this.state.locationChoice === "c") {
+	  	  this.state.location = 3
+	  } else if (this.state.locationChoice === "d") {
+	  	  this.state.location = 4
+	  }
+	  if (this.state.flowerChoice === "a") {
+	  	  this.state.flower = 1
+	  } else if (this.state.flowerChoice === "b") {
+	  	  this.state.flower = 2
+	  } else if (this.state.flowerChoice === "c") {
+	  	  this.state.flower = 3
+	  } else if (this.state.flowerChoice === "d") {
+	  	  this.state.flower = 4
+	  }
+	  if (this.state.cateringChoice === "a") {
+	  	  this.state.catering = 1
+	  } else if (this.state.cateringChoice === "b") {
+	  	  this.state.catering = 2
+	  } else if (this.state.cateringChoice === "c") {
+	  	  this.state.catering = 3
+	  } else if (this.state.cateringChoice === "d") {
+	  	  this.state.catering = 4
+	  }
+	  if (this.state.entertainChoice === "a") {
+	  	  this.state.entertain = 1
+	  } else if (this.state.entertainChoice === "b") {
+	  	  this.state.entertain = 2
+	  } else if (this.state.entertainChoice === "c") {
+	  	  this.state.entertain = 3
+	  } else if (this.state.entertainChoice === "d") {
+	  	  this.state.entertain = 4
+	  }
 	  const data = {
 	  	  eventname: this.state.name,
 		  numattend: this.state.size,
 		  budget: this.state.budget,
-		  location: this.state.locationChoice,
-		  flower: this.state.flowerChoice,
-		  catering: this.state.cateringChoice,
-		  entertain: this.state.entertainChoice,
+		  location: this.state.location,
+		  flower: this.state.flower,
+		  catering: this.state.catering,
+		  entertain: this.state.entertain,
 		  start: this.state.start,
 		  end: this.state.end,
 		  type: this.state.type,
@@ -151,7 +191,7 @@ class FillSection extends React.Component {
 				<GridItem xs={12} sm={12} md={8}>
 				  <TextField
                         id="start"
-                        label="Start Date (YYMMDDHHMM 24H)"
+                        label="Start Date (YYYYMMDD)"
 						type="number"
                         className={classes.textField}
                         value={this.state.start}
@@ -162,7 +202,7 @@ class FillSection extends React.Component {
 				<GridItem xs={12} sm={12} md={8}>
 				  <TextField
                         id="end"
-                        label="End Date (YYMMDDHHMM 24H)"
+                        label="End Date (YYYYMMDD)"
 						type="number"
                         className={classes.textField}
                         value={this.state.end}
