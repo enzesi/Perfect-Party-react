@@ -23,15 +23,17 @@ import componentsStyle from "assets/jss/material-kit-react/views/components.jsx"
 
 import MaterialTable from 'material-table';
 import axios from 'axios';
+import ls from 'local-storage';
 
 class MainPage extends React.Component {
 
   constructor(props) {
     let events = [
-      { title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
-      { title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
+      { eventId: '2', title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
+      { eventId: '12', title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
     ]
     let columns = [
+      { title: 'Event Id', field: 'eventId'},
       { title: 'Title', field: 'title' },
       { title: 'Number of Invitees', field: 'invitees', type: 'numeric' },
       { title: 'Budget', field: 'budget', type: 'numeric' },
@@ -45,13 +47,18 @@ class MainPage extends React.Component {
     super(props);
     this.state = {
       columns: columns,
-      events: events
+      events: events,
+      clientId: ls.get('clientId'),
+      eventId: null
     };
   }
 
   componentDidMount() {
     axios.get('http://localhost:3003/').then(res => {
-      
+      console.log(res.data)
+      this.setState({
+        events: res.data
+      });
     })
   }
 
@@ -95,10 +102,16 @@ class MainPage extends React.Component {
               tooltip: 'Favourite',
               onClick: (event, rowData) => {
                 // Do favourtie operation
+                let data = {
+                  clientId: this.state.clientId,
+                  eventId: rowData['eventId']
+                }
                 console.log('favourite event')
-                // axios.get('http://localhost:3003/').then(res => {
+                console.log('log data')
+                console.log(data)
+                axios.post('http://localhost:3003/favourite', { data }).then(res => {
 
-                // })
+                })
               }
             }
           ]}
