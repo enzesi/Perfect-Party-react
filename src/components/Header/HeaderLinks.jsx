@@ -19,6 +19,7 @@ import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 
 import headerLinksStyle from "assets/jss/material-kit-react/components/headerLinksStyle.jsx";
+import ls from 'local-storage';
 
 function HeaderLinks({ ...props }) {
   const { classes } = props;
@@ -66,7 +67,8 @@ function HeaderLinks({ ...props }) {
             <Link to="/profile-page" className={classes.dropdownLink}>
               My Profile
             </Link>,
-            <Link to="/login-page" className={classes.dropdownLink}>
+            <Link to="/login-page" className={classes.dropdownLink}
+             onClick={() => { ls.set('clientId', null); }}>
               Sign Out
           </Link>,
           ]}

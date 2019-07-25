@@ -64,25 +64,25 @@ class ProfilePage extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/nameOfCliendId').then(res => {
+    axios.get('http://localhost:3003/nameOfCliendId').then(res => {
       console.log(res.data)
       this.setState({
         name: res.data
       })
     })
-    axios.get('http://localhost:3000/pastEvent').then(res => {
+    axios.get('http://localhost:3003/pastEvent').then(res => {
       console.log(res.data)
       this.setState({
         history: res.data
       })
     })
-    axios.get('http://localhost:3000/futureEvent').then(res => {
+    axios.get('http://localhost:3003/futureEvent').then(res => {
       console.log(res.data)
       this.setState({
         upcoming: res.data
       })
     })
-    axios.get('http://localhost:3000/favourites').then(res => {
+    axios.get('http://localhost:3003/favourites').then(res => {
       console.log(res.data)
       this.setState({
         favourites: res.data
