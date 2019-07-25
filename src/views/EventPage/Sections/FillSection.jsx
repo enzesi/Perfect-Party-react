@@ -80,7 +80,7 @@ class FillSection extends React.Component {
 
   handleSubmit = event => {
   	  event.preventDefault()
-	  const user = {
+	  const data = {
 	  	  eventname: this.state.name,
 		  numattend: this.state.size,
 		  budget: this.state.budget,
@@ -96,8 +96,8 @@ class FillSection extends React.Component {
 		  visibility: this.state.visibility,
 		  clientId: this.state.clientId,
 	  }
-	  /*axios.post('http://localhost:3003/createEvent', {data}).then(res => {*/
-	  axios.post('https://jsonplaceholder.typicode.com/users', {user}).then(res => {
+	  axios.post('http://localhost:3003/createEvent', {data}).then(res => {
+	  /*axios.post('https://jsonplaceholder.typicode.com/users', {user}).then(res => { */
 	  		console.log(res)
 			console.log(res.data)
 	  })
