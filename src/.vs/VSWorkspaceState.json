@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\assets",
+    "\\assets\\jss",
+    "\\assets\\jss\\material-kit-react",
+    "\\assets\\jss\\material-kit-react\\views",
+    "\\views",
+    "\\views\\EventPage",
+    "\\views\\EventPage\\Sections",
+    "\\views\\SupplierPage",
+    "\\views\\SupplierPage\\Sections"
+  ],
+  "SelectedNode": "\\views\\SupplierPage\\Sections\\FillSection.jsx",
+  "PreviewInSolutionExplorer": false
+}

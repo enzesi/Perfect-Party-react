@@ -24,7 +24,7 @@ import FillSection from "./Sections/FillSection.jsx";
 
 const dashboardRoutes = [];
 
-class SupplierPage extends React.Component {
+class NewSupplierPage extends React.Component {
   render() {
     const { classes, ...rest } = this.props;
     return (
@@ -45,7 +45,7 @@ class SupplierPage extends React.Component {
           <div className={classes.container}>
             <GridContainer>
               <GridItem xs={12} sm={12} md={6}>
-                <h2 className={classes.title}>Add to a Supplier or Product</h2>
+                <h2 className={classes.title}>Add or Update Supplier Information</h2>
                 <br />
               </GridItem>
             </GridContainer>
@@ -62,8 +62,8 @@ class SupplierPage extends React.Component {
   }
 }
 
-SupplierPage.propTypes = {
+NewSupplierPage.propTypes = {
   classes: PropTypes.object
 };
 
-export default withStyles(supplierPageStyle)(SupplierPage);
+export default withStyles(supplierPageStyle)(NewSupplierPage);
