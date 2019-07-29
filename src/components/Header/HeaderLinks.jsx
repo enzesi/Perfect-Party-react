@@ -23,6 +23,21 @@ import ls from 'local-storage';
 
 function HeaderLinks({ ...props }) {
   const { classes } = props;
+  let admin;
+  if (ls.get('clientId') === 1 ) {}
+  if (true) {
+	admin = [
+      <ListItem className={classes.listItem}>
+        <Link to="/supplier-page" className={classes.dropdownLink}
+          color="transparent"
+          target="_blank"
+          className={classes.navLink}>
+          Add Suppliers/Products
+        </Link>
+      </ListItem>
+	]
+  }
+
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
@@ -34,16 +49,7 @@ function HeaderLinks({ ...props }) {
         </Link>
       </ListItem>
 
-      <ListItem className={classes.listItem}>
-        <Button
-          href="https://www.creative-tim.com/product/material-kit-react?ref=mkr-navbar"
-          color="transparent"
-          target="_blank"
-          className={classes.navLink}
-        >
-          Create Options
-        </Button>
-      </ListItem>
+	  {admin}
 
       <ListItem className={classes.listItem}>
         <Link to="/event-page" className={classes.dropdownLink}

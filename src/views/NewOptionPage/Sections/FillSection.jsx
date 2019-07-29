@@ -67,8 +67,13 @@ class FillSection extends React.Component {
 	console.log("on change ,", name)
   };
 
+  handleAdd() {
+    window.alert("Success! The window will close once you click OK")
+	setTimeout(() => window.close(), 500)
+  }
+
   state = {
-	pid: 0,
+    pid: 0,
 	name: "",
 	category: "a",
 	type: "",
@@ -88,7 +93,7 @@ class FillSection extends React.Component {
 		  name: this.state.name,
 		  type: this.state.type,
 	  }
-	  axios.post('http://localhost:3003/createEvent', {data}).then(res => {
+	  axios.post('http://localhost:3003/createProduct', {data}).then(res => {
 	  /*axios.post('https://jsonplaceholder.typicode.com/users', {user}).then(res => { */
 	  		console.log(res)
 			console.log(res.data)
@@ -111,7 +116,7 @@ class FillSection extends React.Component {
                 <GridItem xs={12} sm={12} md={8}>
 				  <TextField
                         id="pid"
-                        label="Product ID"
+                        label="Product ID (Please enter -1 if adding a product)"
 						type="number"
                         className={classes.textField}
                         value={this.state.pid}
@@ -226,7 +231,7 @@ class FillSection extends React.Component {
                 <GridContainer justify="center">
 					<br />
                   <GridItem xs={12} sm={12} md={8} className={classes.textCenter}>
-                    <Button type="submit" color="primary">Add</Button>
+                    <Button type="submit" color="primary" onClick={this.handleAdd}>Add</Button>
 					<br />
 					<GridContainer justify="center">
 					  <GridItem xs={12} sm={12} md={6} className={classes.textCenter}>

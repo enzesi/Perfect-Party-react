@@ -57,6 +57,7 @@ class FillSection extends React.Component {
   constructor(props) {
     super(props)
 	this.handleChange = this.handleChange.bind(this)
+	this.handleAdd = this.handleAdd.bind(this)
   }
 
   handleChange = name => event => {
@@ -66,6 +67,11 @@ class FillSection extends React.Component {
     });
 	console.log("on change ,", name)
   };
+  
+  handleAdd() {
+    window.alert("Success! The window will close once you click OK")
+	setTimeout(() => window.close(), 500)
+  }
 
   state = {
   	  name: '',
@@ -720,7 +726,7 @@ class FillSection extends React.Component {
                     md={4}
                     className={classes.textCenter}
                   >
-                    <Button type="submit" color="primary">Create Your Event</Button>
+                    <Button type="submit" color="primary" onClick={this.handleAdd}>Create Your Event</Button>
 					<br />
 					<Link to="/" className={classes.dropdownLink}
 					  color="transparent"

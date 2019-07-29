@@ -71,26 +71,21 @@ class FillSection extends React.Component {
 	sid: 0,
 	pid: 0,
 	price: 0,
-	category: "a",
-	type: "",
+  }
+
+  handleAdd() {
+    window.alert("Success! The window will close once you click OK")
+	setTimeout(() => window.close(), 500)
   }
 
   handleSubmit = event => {
   	  event.preventDefault()
-	  if (this.state.category === "a") {
-	  	  this.state.type = "Flower"
-	  } else if (this.state.category === "b") {
-	  	  this.state.type = "Entertainment"
-	  } else if (this.state.category === "c") {
-	  	  this.state.type = "Catering"
-	  } 
 	  const data = {
 	  	  supplierId: this.state.sid,
 		  productId: this.state.pid,
 		  price: this.state.price,
-		  type: this.state.type,
 	  }
-	  axios.post('http://localhost:3003/createEvent', {data}).then(res => {
+	  axios.post('http://localhost:3003/createQuote', {data}).then(res => {
 	  /*axios.post('https://jsonplaceholder.typicode.com/users', {user}).then(res => { */
 	  		console.log(res)
 			console.log(res.data)
@@ -105,6 +100,22 @@ class FillSection extends React.Component {
     return (
       <div className={classes.section}>
         <GridContainer justify="center">
+	  	  <GridItem cs={12} sm={12} md={4}>
+		  	<Link to="/new-option-page" className={classes.dropdownLink}
+				color="transparent"
+				target="_blank"
+				className={classes.navLink}>
+				Add a New Product
+			</Link>
+		  </GridItem>
+		  <GridItem cs={12} sm={12} md={4}>
+		  	<Link to="/new-supplier-page" className={classes.dropdownLink}
+				color="transparent"
+				target="_blank"
+				className={classes.navLink}>
+				Add a New Supplier
+			</Link>
+		  </GridItem>
           <GridItem cs={12} sm={12} md={8}>
             <h3 className={classes.title}>
               Please fill in the options bellow
@@ -144,99 +155,6 @@ class FillSection extends React.Component {
                   />
 			    </GridItem>
 
-				<GridContainer justify="center">
-				<GridItem xs={12} sm={12} md={3}>
-				<div className={wrapperDiv}>
-				  <FormControlLabel
-					control={
-					  <Radio
-						checked={this.state.category === "a"}
-						onChange={this.handleChange('category')}
-						value="a"
-						name="radio button enabled"
-						aria-label="A"
-						icon={
-						  <FiberManualRecord
-							className={classes.radioUnchecked}
-						  />
-						}
-						checkedIcon={
-						  <FiberManualRecord className={classes.radioChecked} />
-						}
-						classes={{
-						  checked: classes.radio
-						}}
-					  />
-					}
-					classes={{
-					  label: classes.label
-					}}
-					label="Flower"
-				  />
-				</div>
-				</GridItem>			
-				<GridItem xs={12} sm={12} md={3}>
-				<div className={wrapperDiv}>
-				  <FormControlLabel
-					control={
-					  <Radio
-						checked={this.state.category === "b"}
-						onChange={this.handleChange('category')}
-						value="b"
-						name="radio button enabled"
-						aria-label="B"
-						icon={
-						  <FiberManualRecord
-							className={classes.radioUnchecked}
-						  />
-						}
-						checkedIcon={
-						  <FiberManualRecord className={classes.radioChecked} />
-						}
-						classes={{
-						  checked: classes.radio
-						}}
-					  />
-					}
-					classes={{
-					  label: classes.label
-					}}
-					label="Entertainment"
-				  />
-				</div>
-				</GridItem>
-				<GridItem xs={12} sm={12} md={3}>
-				<div className={wrapperDiv}>
-				  <FormControlLabel
-					control={
-					  <Radio
-						checked={this.state.category === "c"}
-						onChange={this.handleChange('category')}
-						value="c"
-						name="radio button enabled"
-						aria-label="C"
-						icon={
-						  <FiberManualRecord
-							className={classes.radioUnchecked}
-						  />
-						}
-						checkedIcon={
-						  <FiberManualRecord className={classes.radioChecked} />
-						}
-						classes={{
-						  checked: classes.radio
-						}}
-					  />
-					}
-					classes={{
-					  label: classes.label
-					}}
-					label="Catering"
-				  />
-				</div>
-				</GridItem>
-				</GridContainer>
-
                 <GridContainer justify="center">
                   <GridItem
                     xs={12}
@@ -244,7 +162,7 @@ class FillSection extends React.Component {
                     md={4}
                     className={classes.textCenter}
                   >
-                    <Button type="submit" color="primary">Add</Button>
+                    <Button type="submit" color="primary" onClick={this.handleAdd}>Add</Button>
 					<br />
 					<Link to="/" className={classes.dropdownLink}
 					  color="transparent"

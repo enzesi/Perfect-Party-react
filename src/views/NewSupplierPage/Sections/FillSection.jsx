@@ -51,12 +51,26 @@ import { createHashHistory } from 'history'
 
 import fillStyle from "assets/jss/material-kit-react/views/eventPageSections/fillStyle.jsx";
 
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+
 export const history = createHashHistory()
 
 class FillSection extends React.Component {
   constructor(props) {
     super(props)
 	this.handleChange = this.handleChange.bind(this)
+    this.state = {
+		sid: 0,
+		name: "",
+		email: "",
+		phone: 0,
+		address: "",
+	  }
   }
 
   handleChange = name => event => {
@@ -67,11 +81,9 @@ class FillSection extends React.Component {
 	console.log("on change ,", name)
   };
 
-  state = {
-	sid: 0,
-	name: "",
-	email: "",
-	phone: 0,
+  handleAdd() {
+    window.alert("Success! The window will close once you click OK")
+	setTimeout(() => window.close(), 500)
   }
 
   handleSubmit = event => {
@@ -81,13 +93,15 @@ class FillSection extends React.Component {
 		  name: this.state.name,
 		  email: this.state.email,
 		  phone: this.state.phone,
+		  address: this.state.address,
 	  }
-	  axios.post('http://localhost:3003/createEvent', {data}).then(res => {
+	  axios.post('http://localhost:3003/createSupplier', {data}).then(res => {
 	  /*axios.post('https://jsonplaceholder.typicode.com/users', {user}).then(res => { */
 	  		console.log(res)
 			console.log(res.data)
 	  })
   }
+
   render() {
     const { classes } = this.props;
 	const wrapperDiv = classNames(
@@ -105,7 +119,7 @@ class FillSection extends React.Component {
                 <GridItem xs={12} sm={12} md={8}>
 				  <TextField
                         id="sid"
-                        label="Supplier ID"
+                        label="Supplier ID (Please enter -1 if adding a supplier)"
 						type="number"
                         className={classes.textField}
                         value={this.state.sid}
@@ -144,11 +158,20 @@ class FillSection extends React.Component {
                         margin="normal"
                   />
 			    </GridItem>
+				<GridItem xs={12} sm={12} md={8}>
+				  <TextField
+                        id="address"
+                        label="Address"
+                        className={classes.textField}
+                        value={this.state.address}
+                        onChange={this.handleChange('address')}
+                        margin="normal"
+                  />
+			    </GridItem>
 
                 <GridContainer justify="center">
-					<br />
                   <GridItem xs={12} sm={12} md={8} className={classes.textCenter}>
-                    <Button type="submit" color="primary">Add</Button>
+                    <Button type="submit" color="primary" onClick={this.handleAdd}>Add</Button>
 					<br />
 					<GridContainer justify="center">
 					  <GridItem xs={12} sm={12} md={6} className={classes.textCenter}>
