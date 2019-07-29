@@ -24,7 +24,7 @@ import ls from 'local-storage';
 function HeaderLinks({ ...props }) {
   const { classes } = props;
   let admin;
-  if (ls.get('clientId') === 1 ) {
+  if (ls.get('clientId')[0]['clientid'] === 1 ) {
 	admin = [
       <ListItem className={classes.listItem}>
         <Link to="/supplier-page" className={classes.dropdownLink}
