@@ -222,8 +222,6 @@ class FillSection extends React.Component {
                   />
 			    </GridItem>		
 
-
-
 				<GridContainer justify="center">
 				<GridItem xs={12} sm={12} md={3}>
 				<div className={wrapperDiv}>

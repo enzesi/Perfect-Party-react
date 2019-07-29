@@ -60,6 +60,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export const history = createHashHistory()
 
+let sid = -1;
+
 class FillSection extends React.Component {
   constructor(props) {
     super(props)
@@ -82,7 +84,7 @@ class FillSection extends React.Component {
   };
 
   handleAdd() {
-    window.alert("Success! The window will close once you click OK")
+    window.alert("Success! Your Supplier ID is " + sid + " The window will close once you click OK")
 	setTimeout(() => window.close(), 500)
   }
 
@@ -99,6 +101,7 @@ class FillSection extends React.Component {
 	  /*axios.post('https://jsonplaceholder.typicode.com/users', {user}).then(res => { */
 	  		console.log(res)
 			console.log(res.data)
+			sid = res["supplierId"]
 	  })
   }
 

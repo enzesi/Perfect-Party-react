@@ -53,6 +53,8 @@ import fillStyle from "assets/jss/material-kit-react/views/eventPageSections/fil
 
 export const history = createHashHistory()
 
+let pid = -1;
+
 class FillSection extends React.Component {
   constructor(props) {
     super(props)
@@ -67,16 +69,16 @@ class FillSection extends React.Component {
 	console.log("on change ,", name)
   };
 
-  handleAdd() {
-    window.alert("Success! The window will close once you click OK")
-	setTimeout(() => window.close(), 500)
-  }
-
   state = {
     pid: 0,
 	name: "",
 	category: "a",
 	type: "",
+  }
+
+  handleAdd() {
+    window.alert("Success! Your Product ID is " + pid + " The window will close once you click OK")
+	setTimeout(() => window.close(), 500)
   }
 
   handleSubmit = event => {
@@ -97,6 +99,7 @@ class FillSection extends React.Component {
 	  /*axios.post('https://jsonplaceholder.typicode.com/users', {user}).then(res => { */
 	  		console.log(res)
 			console.log(res.data)
+			pid = res["productId"]
 	  })
   }
   render() {
