@@ -116,7 +116,7 @@ class FillSection extends React.Component {
         <GridContainer justify="center">
           <GridItem cs={12} sm={12} md={8}>
             <h3 className={classes.title}>
-              Please fill in the options bellow
+              To add a new supplier, please fill in the options bellow
             </h3>
 			<form onSubmit={this.handleSubmit}>
                 <GridItem xs={12} sm={12} md={8}>

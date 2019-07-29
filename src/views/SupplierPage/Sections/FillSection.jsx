@@ -118,7 +118,7 @@ class FillSection extends React.Component {
 		  </GridItem>
           <GridItem cs={12} sm={12} md={8}>
             <h3 className={classes.title}>
-              Please fill in the options bellow
+              To add a new quote, please fill in the options bellow
             </h3>
 			<form onSubmit={this.handleSubmit}>
                 <GridItem xs={12} sm={12} md={8}>
