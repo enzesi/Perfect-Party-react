@@ -17,8 +17,10 @@ import SupplierPage from "views/SupplierPage/SupplierPage.jsx"
 import NewSupplierPage from "views/NewSupplierPage/NewSupplierPage.jsx"
 import NewOptionPage from "views/NewOptionPage/NewOptionPage.jsx"
 
+import ls from 'local-storage';
 
 var hist = createBrowserHistory();
+ls.set('clientId', [['clientid', 0]])
 
 ReactDOM.render(
   <Router history={hist}>

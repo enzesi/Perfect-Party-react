@@ -28,7 +28,6 @@ import ls from 'local-storage';
 class MainPage extends React.Component {
 
   constructor(props) {
-    ls.set('clientId', [['clientid', 0]])
     // let events2 = [
     //   { eventId: '2', title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
     //   { eventId: '12', title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
