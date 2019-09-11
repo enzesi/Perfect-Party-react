@@ -23,135 +23,195 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
-import image from "assets/img/bg7.jpg";
+import image from "assets/img/p1.jpg";
 
 import { withRouter } from "react-router-dom";
+import TextField from '@material-ui/core/TextField';
+import clsx from 'clsx';
+import ls from 'local-storage';
+import axios from 'axios';
+import { thisExpression } from "@babel/types";
 
-const axios = require('axios')
 
 class SignupPage extends React.Component {
-  constructor(props) {
-    super(props);
-    // we use this to make the card to appear after the page has been rendered
-    this.state = {
-      cardAnimaton: "cardHidden"
-    };
-    this.handleClickButton = this.handleClickButton.bind(this)
-  }
+    constructor(props) {
+        super(props);
+        // we use this to make the card to appear after the page has been rendered
+        this.state = {
+            cardAnimaton: "cardHidden",
+            email: null,
+            password: null,
+            name: null,
+            phone: null,
+            billing: null,
+            address: null,
+            adver: true,
+        };
+        this.handleClickButton = this.handleClickButton.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handlePassChange = this.handlePassChange.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handlePhoneChange = this.handlePhoneChange.bind(this);
+    }
 
-  handleClickButton(state) {
-    let path = (state == 'logIn') ? '/profile-page' : '/signup-page'
-    this.props.history.push(path)
-  }
+    handleClickButton(event) {
+        let data = {
+            name: this.state.name,
+            email: this.state.email,
+            phone: this.state.phone,
+            // billing: this.state.billing,
+            // address: this.state.address,
+            address: '',
+            billing: '',
+            password: this.state.password,
+            adver: this.state.adver,
+        }
+        console.log('log client')
+        console.log(data)
+        axios.post('http://localhost:3003/createClient', { data })
+            .then(res => {
+                console.log(res)
+                console.log(res.data)
+                ls.set('clientId', res.data)
+                let path = '/profile-page'
+                this.props.history.push(path)
+            })
+    }
 
-  componentDidMount() {
-    // we add a hidden class to the card and after 700 ms we delete it and the transition appears
-    setTimeout(
-      function() {
-        this.setState({ cardAnimaton: "" });
-      }.bind(this),
-      700
-    );
-  }
-  render() {
-    const { classes, ...rest } = this.props;
-    return (
-      <div>
-        <Header
-          absolute
-          color="transparent"
-          brand="Perfect Party"
-          rightLinks={<HeaderLinks />}
-          // {...rest}
-        />
-        <div
-          className={classes.pageHeader}
-          style={{
-            backgroundImage: "url(" + image + ")",
-            backgroundSize: "cover",
-            backgroundPosition: "top center"
-          }}
-        >
-          <div className={classes.container}>
-            <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={4}>
-                <Card className={classes[this.state.cardAnimaton]}>
-                  <form className={classes.form}>
-                    <CardHeader color="primary" className={classes.cardHeader}>
-                      <h4>Sign Up</h4>
-                    </CardHeader>
-                    <CardBody>
-                      <CustomInput
-                        labelText="Email..."
-                        id="email"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: "email",
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <Email className={classes.inputIconsColor} />
-                            </InputAdornment>
-                          )
-                        }}
-                      />
-                      <CustomInput
-                        labelText="Password"
-                        id="pass"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: "password",
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <Icon className={classes.inputIconsColor}>
-                                lock_outline
-                              </Icon>
-                            </InputAdornment>
-                          ),
-                          autoComplete: "off"
-                        }}
-                      />
-                      <CustomInput
-                        labelText="Confirm Password"
-                        id="passConfirm"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                        inputProps={{
-                          type: "password",
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <Icon className={classes.inputIconsColor}>
-                                lock_outline
-                              </Icon>
-                            </InputAdornment>
-                          ),
-                          autoComplete: "off"
-                        }}
-                      />
-                    </CardBody>
-                    <CardFooter className={classes.cardFooter}>
-                      <Button simple color="primary" size="lg" onClick={() => this.handleClickButton('logIn')}>
-                        Get Started
-                      </Button>
-                    </CardFooter>
-                  </form>
-                </Card>
-              </GridItem>
-            </GridContainer>
-          </div>
-          <Footer whiteFont />
-        </div>
-      </div>
-    );
-  }
+    handleNameChange(event) {
+        if (event) {
+            this.setState({
+                name: event.target.value
+            })
+        }
+    }
+
+    handlePhoneChange(event) {
+        if (event) {
+            this.setState({
+                phone: event.target.value
+            })
+        }
+    }
+
+    handleEmailChange(event) {
+        if (event) {
+            this.setState({
+                email: event.target.value
+            })
+        }
+    }
+
+    handlePassChange(event) {
+        if (event) {
+            this.setState({
+                password: event.target.value
+            })
+        }
+    }
+
+    componentDidMount() {
+        // we add a hidden class to the card and after 700 ms we delete it and the transition appears
+        setTimeout(
+            function () {
+                this.setState({ cardAnimaton: "" });
+            }.bind(this),
+            700
+        );
+    }
+    render() {
+        const { classes, ...rest } = this.props;
+        return (
+            <div>
+                <Header
+                    absolute
+                    color="transparent"
+                    brand="Perfect Party"
+                    rightLinks={<HeaderLinks />}
+                // {...rest}
+                />
+                <div
+                    className={classes.pageHeader}
+                    style={{
+                        backgroundImage: "url(" + image + ")",
+                        backgroundSize: "cover",
+                        backgroundPosition: "top center"
+                    }}
+                >
+                    <div className={classes.container}>
+                        <GridContainer justify="center">
+                            <GridItem xs={12} sm={12} md={4}>
+                                <Card className={classes[this.state.cardAnimaton]}>
+                                    <form className={classes.form}>
+                                        <CardHeader color="primary" className={classes.cardHeader}>
+                                            <h4>Sign Up</h4>
+                                        </CardHeader>
+                                        <CardBody>
+                                            <TextField 
+                                                inputStyle={{ textAlign: 'center' }}
+                                                hintStyle={{ width: '300px', textAlign: 'center' }}
+                                                style={{ width: '300px' }}
+                                                id="name"
+                                                label="Name"
+                                                className={classes.textField}
+                                                value={this.state.name}
+                                                onChange={this.handleNameChange}
+                                                margin="normal"
+                                            />
+                                            <TextField 
+                                                inputStyle={{ textAlign: 'center' }}
+                                                hintStyle={{ width: '300px', textAlign: 'center' }}
+                                                style={{ width: '300px' }}
+                                                id="phone"
+                                                label="Phone Number"
+                                                className={classes.textField}
+                                                value={this.state.phone}
+                                                onChange={this.handlePhoneChange}
+                                                margin="normal"
+                                            />
+                                            <TextField
+                                                inputStyle={{ textAlign: 'center' }}
+                                                hintStyle={{ width: '300px', textAlign: 'center' }}
+                                                style={{ width: '300px' }}
+                                                id="email"
+                                                label="Email"
+                                                className={classes.textField}
+                                                value={this.state.email}
+                                                onChange={this.handleEmailChange}
+                                                margin="normal"
+                                            />
+                                            <TextField
+                                                inputStyle={{ textAlign: 'center' }}
+                                                hintStyle={{ width: '300px', textAlign: 'center' }}
+                                                style={{ width: '300px' }}
+                                                id="pass"
+                                                className={clsx(classes.margin, classes.textField)}
+                                                variant="filled"
+                                                type={this.state.showPassword ? 'text' : 'password'}
+                                                label="Password"
+                                                value={this.state.password}
+                                                onChange={this.handlePassChange}
+                                            />                      
+                                        </CardBody>
+                                        <CardFooter className={classes.cardFooter}>
+                                            <Button simple color="primary" size="lg" onClick={() => this.handleClickButton()}>
+                                                Get Started
+                                            </Button>
+                                        </CardFooter>
+                                    </form>
+                                </Card>
+                            </GridItem>
+                        </GridContainer>
+                    </div>
+                    <Footer whiteFont />
+                </div>
+            </div>
+        );
+    }
 }
 
 SignupPage.propTypes = {
-  classes: PropTypes.object
+    classes: PropTypes.object
 };
 
 export default withStyles(loginPageStyle)(SignupPage);

@@ -17,14 +17,14 @@ import Button from "components/CustomButtons/Button.jsx";
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 
-import eventPageStyle from "assets/jss/material-kit-react/views/eventPage.jsx";
+import supplierPageStyle from "assets/jss/material-kit-react/views/supplierPage.jsx";
 
 // Sections for this page
 import FillSection from "./Sections/FillSection.jsx";
 
 const dashboardRoutes = [];
 
-class EventPage extends React.Component {
+class SupplierPage extends React.Component {
   render() {
     const { classes, ...rest } = this.props;
     return (
@@ -45,7 +45,7 @@ class EventPage extends React.Component {
           <div className={classes.container}>
             <GridContainer>
               <GridItem xs={12} sm={12} md={6}>
-                <h2 className={classes.title}>Organize Your Event</h2>
+                <h2 className={classes.title}>Add to a Supplier or Product</h2>
                 <br />
               </GridItem>
             </GridContainer>
@@ -62,8 +62,8 @@ class EventPage extends React.Component {
   }
 }
 
-EventPage.propTypes = {
+SupplierPage.propTypes = {
   classes: PropTypes.object
 };
 
-export default withStyles(eventPageStyle)(EventPage);
+export default withStyles(supplierPageStyle)(SupplierPage);

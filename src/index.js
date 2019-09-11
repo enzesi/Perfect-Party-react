@@ -13,8 +13,14 @@ import LoginPage from "views/LoginPage/LoginPage.jsx";
 import SignupPage from "views/SignupPage/SignupPage.jsx";
 import MainPage from "views/MainPage/MainPage.jsx";
 import EventPage from "views/EventPage/EventPage.jsx"
+import SupplierPage from "views/SupplierPage/SupplierPage.jsx"
+import NewSupplierPage from "views/NewSupplierPage/NewSupplierPage.jsx"
+import NewOptionPage from "views/NewOptionPage/NewOptionPage.jsx"
+
+import ls from 'local-storage';
 
 var hist = createBrowserHistory();
+ls.set('clientId', [['clientid', 0]])
 
 ReactDOM.render(
   <Router history={hist}>
@@ -25,7 +31,11 @@ ReactDOM.render(
       <Route path="/login-page" component={LoginPage} />
       <Route path="/signup-page" component={SignupPage} />
       <Route path="/components-page" component={Components} />
-	    <Route path="/event-page" component={EventPage} />
+	  <Route path="/event-page" component={EventPage} />
+	  <Route path="/supplier-page" component={SupplierPage} />
+	  <Route path="/new-supplier-page" component={NewSupplierPage} />
+	  <Route path="/new-option-page" component={NewOptionPage} />
+
     </Switch>
   </Router>,
   document.getElementById("root")

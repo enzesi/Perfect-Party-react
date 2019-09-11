@@ -23,7 +23,7 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 
 import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 
-import image from "assets/img/bg7.jpg";
+import image from "assets/img/p1.jpg";
 import TextField from '@material-ui/core/TextField';
 import clsx from 'clsx';
 
@@ -42,30 +42,33 @@ class LoginPage extends React.Component {
       email: null,
       showPassword: false
     };
-    this.handleClickButton = this.handleClickButton.bind(this)
+    this.handleLoginButton = this.handleLoginButton.bind(this)
+    this.handleSignupButton = this.handleSignupButton.bind(this)
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePassChange = this.handlePassChange.bind(this);
   }
 
-  handleClickButton(state) {
-    let path;
-    if (state == 'logIn') {
-      let data = {
-        email: this.state.email,
-        password: this.state.password
-      }
-      console.log('log client')
-      console.log(data)
-      axios.post('http://localhost:3003/clientPassword', { data })
-        .then(res => {
-          console.log(res)
-          console.log(res.data)
-          ls.set('clientId', res.data)
-          path = '/profile-page'
-        })
-    } else if (state == 'signUp') {
-      path = '/signup-page'
+  handleLoginButton(event) {
+    console.log('handleClickButton called')
+    let data = {
+      email: this.state.email,
+      password: this.state.password
     }
+    console.log('log client')
+    console.log(data)
+    axios.post('http://localhost:3003/clientPassword', { data })
+      .then(res => {
+        console.log(res)
+        console.log(res.data)
+        ls.set('clientId', res.data)
+        let path = '/profile-page'
+        this.props.history.push(path)
+      })
+  }
+
+  handleSignupButton(event) {
+    console.log('handleClickButton called')
+    let path = '/signup-page'
     this.props.history.push(path)
   }
 
@@ -125,6 +128,9 @@ class LoginPage extends React.Component {
                     </CardHeader>
                     <CardBody>
                       <TextField
+                        inputStyle={{ textAlign: 'center' }}
+                        hintStyle={{ width: '300px', textAlign: 'center' }}
+                        style={{ width: '300px' }}
                         id="email"
                         label="Email"
                         className={classes.textField}
@@ -134,6 +140,9 @@ class LoginPage extends React.Component {
                       />
 
                       <TextField
+                        inputStyle={{ textAlign: 'center' }}
+                        hintStyle={{ width: '300px', textAlign: 'center' }}
+                        style={{ width: '300px' }}
                         id="pass"
                         className={clsx(classes.margin, classes.textField)}
                         variant="filled"
@@ -144,10 +153,10 @@ class LoginPage extends React.Component {
                       />
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
-                      <Button simple color="primary" size="lg" onClick={() => this.handleClickButton('logIn')}>
+                      <Button simple color="primary" size="lg" onClick={this.handleLoginButton}>
                         Log In
                       </Button>
-                      <Button simple color="primary" size="lg" onClick={() => this.handleClickButton("singUp")}>
+                      <Button simple color="primary" size="lg" onClick={this.handleSignupButton}>
                         Sign Up
                       </Button>
                     </CardFooter>

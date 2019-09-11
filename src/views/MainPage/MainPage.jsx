@@ -22,36 +22,63 @@ import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import componentsStyle from "assets/jss/material-kit-react/views/components.jsx";
 
 import MaterialTable from 'material-table';
+import axios from 'axios';
+import ls from 'local-storage';
 
 class MainPage extends React.Component {
 
   constructor(props) {
-    let events = [
-      { title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
-      { title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
-    ]
+    // let events2 = [
+    //   { eventId: '2', title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
+    //   { eventId: '12', title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
+    // ]
     let columns = [
+      { title: 'Event Id', field: 'eventid' },
       { title: 'Title', field: 'title' },
-      { title: 'Number of Invitees', field: 'invitees', type: 'numeric' },
+      { title: 'Number of Invitees', field: 'capacity', type: 'numeric' },
       { title: 'Budget', field: 'budget', type: 'numeric' },
-      { title: 'Start Date', field: 'start', type: 'date' },
-      { title: 'End Date', field: 'end', type: 'date' },
+      { title: 'Start Date', field: 'startdate', type: 'date' },
+      { title: 'End Date', field: 'enddate', type: 'date' },
       { title: 'Location', field: 'location' },
-      { title: 'Menu', field: 'menu' },
+      { title: 'Menu', field: 'catering' },
       { title: 'Flower', field: 'flower' },
-      { title: 'Music', field: 'music' },
+      { title: 'Music', field: 'entertainment' },
     ]
     super(props);
     this.state = {
       columns: columns,
-      events: events
+      events: [],
+      clientId: ls.get('clientId'),
+      eventId: null
     };
   }
 
-  createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+  componentDidMount() {
+    axios.get('http://localhost:3003/allEvents').then(res => {
+      console.log(res.data)
+      let events = []
+      var data = JSON.parse(res.data)
+      for(let i = 0; i < data.length; i++) {
+        events.push({
+          eventid: data[i]["eventid"],
+          title: data[i]["eventid"],
+          capacity: data[i]['capacity'],
+          budget: data[i]['budget'],
+          startdate: data[i]['startdate'],
+          enddate: data[i]['enddate'],
+          location: data[i]['location'],
+          catering: data[i]['catering'],
+          flower: data[i]['flower'],
+          entertainment: data[i]['entertainment'],
+        })
+      }
+      console.log('log events')
+      console.log(events)
+      this.setState({
+        events: events
+      });
+    })
   }
-
 
   render() {
     const { classes, ...rest } = this.props;
@@ -92,7 +119,16 @@ class MainPage extends React.Component {
               icon: 'save',
               tooltip: 'Favourite',
               onClick: (event, rowData) => {
-                // Do save operation
+                // Do favourtie operation
+                let clientId = this.state.clientId[0]['clientid']
+                let eventId =  rowData['eventid']
+                
+                console.log('favourite event')
+                console.log('log data')
+                //console.log(data)
+                axios.get('http://localhost:3003/createFavEvent/' + clientId + '/' + eventId).then(res => {
+                  
+                })
               }
             }
           ]}
@@ -103,7 +139,7 @@ class MainPage extends React.Component {
                   resolve();
                   const data = [...this.state.events];
                   data[data.indexOf(oldData)] = newData;
-                  this.setState({ events : data });
+                  this.setState({ events: data });
                 }, 600);
               }),
             onRowDelete: oldData =>
@@ -112,7 +148,7 @@ class MainPage extends React.Component {
                   resolve();
                   const data = [...this.state.events];
                   data.splice(data.indexOf(oldData), 1);
-                  this.setState({ events : data });
+                  this.setState({ events: data });
                 }, 600);
               }),
           }}

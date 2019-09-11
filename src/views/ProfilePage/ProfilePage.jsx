@@ -25,44 +25,84 @@ import axios from "axios";
 import profilePageStyle from "assets/jss/material-kit-react/views/profilePage.jsx";
 
 import MaterialTable from 'material-table';
+import ls from 'local-storage';
 
 class ProfilePage extends React.Component {
   constructor(props) {
-    let history = [
-      { title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
-      { title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
-    ]
-    let upcoming = [
-      { title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
-      { title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
-    ]
-    let favourites = [
-      { title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
-      { title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
-    ]
+    // let history = [
+    //   { eventId: '2', title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
+    //   { eventId: '12', title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
+    // ]
+    // let upcoming = [
+    //   { eventId: '2', title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
+    //   { eventId: '12', title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
+    // ]
+    // let favourites = [
+    //   { eventId: '2', title: 'Mehmet', location: 'Baran', budget: 1987, menu: 63 },
+    //   { eventId: '12', title: 'Zerya Betül', menu: 'Baran', flower: 2017, budget: 34, },
+    // ]
+
     let columns = [
+      { title: 'Event Id', field: 'eventid' },
       { title: 'Title', field: 'title' },
-      { title: 'Number of Invitees', field: 'invitees', type: 'numeric' },
+      { title: 'Number of Invitees', field: 'capacity', type: 'numeric' },
       { title: 'Budget', field: 'budget', type: 'numeric' },
-      { title: 'Start Date', field: 'start', type: 'date' },
-      { title: 'End Date', field: 'end', type: 'date' },
+      { title: 'Start Date', field: 'startdate', type: 'date' },
+      { title: 'End Date', field: 'enddate', type: 'date' },
       { title: 'Location', field: 'location' },
-      { title: 'Menu', field: 'menu' },
+      { title: 'Menu', field: 'catering' },
       { title: 'Flower', field: 'flower' },
-      { title: 'Music', field: 'music' },
+      { title: 'Music', field: 'entertainment' },
     ]
     super(props);
     this.state = {
       columns: columns,
-      history: history,
-      upcoming: upcoming,
-      favourites: favourites
+      history: [],
+      upcoming: [],
+      favourites: [],
+      clientId: ls.get('clientId'),
+      name: null,
     };
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/clientInfo').then(res => {
-      console.log(res)
+    var id = this.state.clientId[0]['clientid']
+    axios.get('http://localhost:3003/clientName/' + id).then(res => {
+      console.log(res.data)
+      this.setState({ name: res.data[0]['clientname']}, function () {
+        axios.get('http://localhost:3003/pastEvent/' + id).then(res => {
+          console.log('2: ', res)
+          let history = []
+          var data = res.data
+          for(let i = 0; i < data.length; i++) {
+            history.push({
+              eventid: data[i]["eventid"],
+              title: data[i]["eventid"],
+              capacity: data[i]['capacity'],
+              budget: data[i]['budget'],
+              startdate: data[i]['startdate'],
+              enddate: data[i]['enddate'],
+              location: data[i]['location'],
+              catering: data[i]['catering'],
+              flower: data[i]['flower'],
+              entertainment: data[i]['entertainment'],
+            })
+          }
+          console.log(history)
+          this.setState({ history: history}, function() {
+            axios.get('http://localhost:3003/upComingEvent/' + id).then(res => {
+              console.log('3: ', res)
+
+              this.setState({ upcoming: res.data}, function() {
+                axios.get('http://localhost:3003/favouriteEvents/' + id).then(res => {
+                  console.log('4: ', res)
+                  this.setState({ favourites: res.data });
+                })
+              });
+            })
+          });
+        })
+      });
     })
   }
 
@@ -98,7 +138,7 @@ class ProfilePage extends React.Component {
                       <img src={profile} alt="..." className={imageClasses} />
                     </div>
                     <div className={classes.name}>
-                      <h3 className={classes.title}>Christian Louboutin</h3>
+                      <h3 className={classes.title}>{this.state.name}</h3>
                     </div>
                   </div>
                 </GridItem>
@@ -122,7 +162,15 @@ class ProfilePage extends React.Component {
                                 icon: 'save',
                                 tooltip: 'Favourite',
                                 onClick: (event, rowData) => {
-                                  // Do save operation
+                                  // Do favourtie operation
+                                  let clientId = this.state.clientId[0]['clientid']
+                                  let eventId =  rowData['eventid']
+  
+                                  axios.get('http://localhost:3003/createFavEvent/' + clientId + '/' + eventId).then(res => {
+                  
+                                    }).then(res => {
+                                    
+                                  })
                                 }
                               }
                             ]}
@@ -142,7 +190,15 @@ class ProfilePage extends React.Component {
                                 icon: 'save',
                                 tooltip: 'Favourite',
                                 onClick: (event, rowData) => {
-                                  // Do save operation
+                                  // Do favourtie operation
+                                  let clientId = this.state.clientId[0]['clientid']
+                                  let eventId =  rowData['eventid']
+  
+                                  axios.get('http://localhost:3003/createFavEvent/' + clientId + '/' + eventId).then(res => {
+                  
+                                    }).then(res => {
+                                    
+                                  })
                                 }
                               }
                             ]}
@@ -159,10 +215,26 @@ class ProfilePage extends React.Component {
                             data={this.state.favourites}
                             actions={[
                               {
-                                icon: 'save',
-                                tooltip: 'Favourite',
+                                icon: 'delete',
+                                tooltip: 'Unfavourite',
                                 onClick: (event, rowData) => {
-                                  // Do save operation
+                                  // Do unsave operation
+                                  
+                                  var id = this.state.clientId[0]['clientid']
+                                  var eventid = rowData['eventid']
+                                  console.log(id)
+                                  console.log(eventid)
+                          
+                                  axios.get('http://localhost:3003/deleteFavEvent/' + id + '/' + eventid).then(res => {
+                                    console.log(res.data)
+                                    var id = this.state.clientId[0]['clientid']
+                                    axios.get('http://localhost:3003/favouriteEvents/' + id).then(res => {
+                                    console.log(res.data)
+                                    this.setState({                    
+                                      favourites: res.data
+                                    });
+                                  })
+                                  })
                                 }
                               }
                             ]}

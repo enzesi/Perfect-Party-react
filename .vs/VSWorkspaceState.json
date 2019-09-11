@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\components\\Header",
+    "\\src\\views",
+    "\\src\\views\\Components",
+    "\\src\\views\\EventPage",
+    "\\src\\views\\EventPage\\Sections",
+    "\\src\\views\\LoginPage",
+    "\\src\\views\\MainPage"
+  ],
+  "SelectedNode": "\\src\\views\\MainPage\\MainPage.jsx",
+  "PreviewInSolutionExplorer": false
+}
